@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://MazePlayer.gd" type="Script" id=1]
+[ext_resource path="res://Coin.tscn" type="PackedScene" id=2]
+[ext_resource path="res://playerSpriteFrames.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://platformerTileSet.tres" type="TileSet" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 17.9951
+height = 15.8281
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1215.79, 155.578 )
+
+[node name="Maze" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+collision_layer = 2
+collision_mask = 9
+format = 1
+tile_data = PoolIntArray( 0, 1610612743, 0, 1, 1610612738, 0, 2, 1610612738, 0, 3, 1610612738, 0, 4, 1610612738, 0, 5, 1610612738, 0, 6, 1610612738, 0, 7, 1610612738, 0, 8, 1610612738, 0, 9, 1610612738, 0, 10, 1610612738, 0, 11, 1610612738, 0, 12, 1610612738, 0, 13, 1610612738, 0, 14, 1610612738, 0, 15, 1610612744, 0, 65536, -1610612734, 0, 65545, 2, 0, 131072, -1610612734, 0, 131073, 2, 0, 131074, 2, 0, 131075, 2, 0, 131076, 2, 0, 131079, 2, 0, 131081, 2, 0, 131083, 2, 0, 131084, 2, 0, 131085, 2, 0, 131086, 2, 0, 131087, -1073741822, 0, 196608, -1610612734, 0, 196610, 2, 0, 196612, 2, 0, 196615, 2, 0, 196619, 2, 0, 196623, -1073741822, 0, 262144, -1610612734, 0, 262146, 2, 0, 262148, 2, 0, 262149, 2, 0, 262150, 2, 0, 262151, 2, 0, 262152, 2, 0, 262155, 2, 0, 262156, 2, 0, 262157, 2, 0, 262159, -1073741822, 0, 327680, -1610612734, 0, 327692, 2, 0, 327695, -1073741822, 0, 393216, -1610612734, 0, 393217, 2, 0, 393218, 2, 0, 393219, 2, 0, 393220, 2, 0, 393221, 2, 0, 393223, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 2, 0, 393228, 2, 0, 393229, 2, 0, 393231, -1073741822, 0, 458752, -1610612734, 0, 458755, 2, 0, 458759, 2, 0, 458762, 2, 0, 458767, -1073741822, 0, 524288, -1610612734, 0, 524289, 2, 0, 524293, 2, 0, 524294, 2, 0, 524295, 2, 0, 524296, 2, 0, 524303, -1073741822, 0, 589824, 8, 0, 589825, 2, 0, 589826, 2, 0, 589827, 2, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589831, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 2, 0, 589836, 2, 0, 589837, 2, 0, 589838, 2, 0, 589839, 7, 0 )
+
+[node name="Player2" type="KinematicBody2D" parent="."]
+position = Vector2( 455.667, 334.179 )
+collision_mask = 14
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="Player2"]
+position = Vector2( 13.5, 10.5 )
+scale = Vector2( 0.739583, 0.78125 )
+frames = ExtResource( 3 )
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+position = Vector2( 13.7122, 22.4161 )
+shape = SubResource( 1 )
+
+[node name="Coin" parent="." instance=ExtResource( 2 )]
+position = Vector2( 821.682, 510.652 )
+
+[node name="Fall Zone2" type="Area2D" parent="."]
+position = Vector2( 850.42, 862.45 )
+collision_layer = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fall Zone2"]
+shape = SubResource( 2 )

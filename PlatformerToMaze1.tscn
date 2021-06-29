@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://MazePlayer.gd" type="Script" id=1]
+[ext_resource path="res://playerSpriteFrames.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://MazeHUD.gd" type="Script" id=3]
+[ext_resource path="res://platformerTileSet.tres" type="TileSet" id=4]
+[ext_resource path="res://Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://HUD/coin_gold.png" type="Texture" id=7]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 25.8929
+height = 14.9213
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1215.79, 155.578 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.976471, 0.968627, 0.619608, 1 )
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 9
+
+[sub_resource type="DynamicFont" id=4]
+size = 46
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+font_data = ExtResource( 6 )
+
+[node name="PlatformerToMaze" type="Node2D"]
+__meta__ = {
+"_editor_description_": "This is a platformer game right now! Left and right arrows are used to move "
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+collision_layer = 2
+collision_mask = 9
+format = 1
+tile_data = PoolIntArray( 0, 9, 0, 2, 9, 0, 3, 9, 0, 4, 9, 0, 5, 9, 0, 6, 9, 0, 7, 9, 0, 8, 9, 0, 9, 9, 0, 10, 9, 0, 11, 9, 0, 12, 9, 0, 13, 9, 0, 14, 9, 0, 15, 9, 0, 65536, 9, 0, 65549, 9, 0, 65551, 9, 0, 131072, 9, 0, 131074, 9, 0, 131075, 9, 0, 131076, 9, 0, 131077, 9, 0, 131078, 9, 0, 131079, 9, 0, 131080, 9, 0, 131082, 9, 0, 131083, 9, 0, 131085, 9, 0, 131087, 9, 0, 196608, 9, 0, 196610, 9, 0, 196614, 9, 0, 196616, 9, 0, 196618, 9, 0, 196619, 9, 0, 196621, 9, 0, 196623, 9, 0, 262144, 9, 0, 262150, 9, 0, 262152, 9, 0, 262155, 9, 0, 262157, 9, 0, 262159, 9, 0, 327680, 9, 0, 327682, 9, 0, 327683, 9, 0, 327684, 9, 0, 327685, 9, 0, 327686, 9, 0, 327688, 9, 0, 327690, 9, 0, 327691, 9, 0, 327693, 9, 0, 327695, 9, 0, 393216, 9, 0, 393219, 9, 0, 393224, 9, 0, 393226, 9, 0, 393231, 9, 0, 458752, 9, 0, 458753, 9, 0, 458754, 9, 0, 458755, 9, 0, 458757, 9, 0, 458758, 9, 0, 458759, 9, 0, 458760, 9, 0, 458761, 9, 0, 458762, 9, 0, 458763, 9, 0, 458764, 9, 0, 458766, 9, 0, 458767, 9, 0, 524288, 9, 0, 524303, 9, 0, 589824, 9, 0, 589825, 9, 0, 589826, 9, 0, 589827, 9, 0, 589828, 9, 0, 589829, 9, 0, 589830, 9, 0, 589831, 9, 0, 589832, 9, 0, 589833, 9, 0, 589834, 9, 0, 589835, 9, 0, 589836, 9, 0, 589837, 9, 0, 589838, 9, 0, 589839, 9, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 246.61, 257.642 )
+scale = Vector2( 0.8, 0.8 )
+collision_mask = 14
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="Player"]
+position = Vector2( 1, 0 )
+frames = ExtResource( 2 )
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 1.30678, 14.8215 )
+shape = SubResource( 1 )
+
+[node name="Fall Zone" type="Area2D" parent="."]
+position = Vector2( 520.731, -148.394 )
+collision_layer = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fall Zone"]
+shape = SubResource( 2 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="HUD"]
+margin_left = 28.4678
+margin_top = 25.4712
+margin_right = 197.468
+margin_bottom = 106.471
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinIcon" type="TextureRect" parent="HUD"]
+margin_left = 38.7525
+margin_top = 41.2475
+margin_right = 88.7525
+margin_bottom = 90.2475
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="x" type="Label" parent="HUD"]
+margin_left = 94.2577
+margin_top = 37.2746
+margin_right = 157.258
+margin_bottom = 93.2746
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.686275, 0.713726, 0.176471, 1 )
+text = "x"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumberOfCoins" type="Label" parent="HUD"]
+margin_left = 119.865
+margin_top = 38.956
+margin_right = 183.865
+margin_bottom = 98.956
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.686275, 0.713726, 0.176471, 1 )
+text = "##"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllCoins" type="Node2D" parent="."]
+
+[node name="Coin" parent="AllCoins" instance=ExtResource( 5 )]
+position = Vector2( 797.305, 226.523 )
+scale = Vector2( 0.546819, 0.546819 )
+
+[node name="Coin2" parent="AllCoins" instance=ExtResource( 5 )]
+position = Vector2( 94.8784, 415.456 )
+scale = Vector2( 0.519998, 0.519998 )
+
+[connection signal="body_entered" from="Fall Zone" to="Player" method="_on_Fall_Zone_body_entered"]
+[connection signal="coin_collected" from="AllCoins/Coin" to="HUD" method="_on_coin_collected"]
+[connection signal="coin_collected" from="AllCoins/Coin2" to="HUD" method="_on_coin_collected"]
